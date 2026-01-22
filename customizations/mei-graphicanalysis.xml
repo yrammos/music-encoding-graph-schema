@@ -21,11 +21,11 @@
     <fileDesc>
       <titleStmt>
         <title level="m" type="main">Music Encoding Initiative Guidelines</title>
-        <title level="a" type="main">Common Music Notation (CMN) Customization</title>
-        <title level="a" type="short">MEI CMN</title>
+        <title level="a" type="main">Graphic Music Analysis Customization</title>
+        <title level="a" type="short">MEI GA</title>
         <respStmt>
           <resp>Authored by</resp>
-          <name role="pbd" xml:id="PR">Perry Roland</name>
+          <name role="pbd" xml:id="PR">Yannis Rammos</name>
         </respStmt>
         <respStmt>
           <resp>Revisions</resp>
@@ -37,7 +37,7 @@
         </respStmt>
       </titleStmt>
       <editionStmt>
-        <edition>MEI 6.0-dev+cmn</edition>
+        <edition>MEI 6.0-dev</edition>
       </editionStmt>
       <publicationStmt>
         <publisher>Music Encoding Initiative (MEI) Board</publisher>
@@ -51,7 +51,7 @@
     </fileDesc>
     <profileDesc>
       <abstract>
-        <p>A customization for encoding <hi rend="italic">Common Music Notation</hi> (CMN).</p>
+        <p>A customization for encoding <hi rend="italic">graphic analyses</hi>.</p>
       </abstract>
       <textClass>
         <keywords>
@@ -60,14 +60,8 @@
       </textClass>
     </profileDesc>
     <revisionDesc>
-      <change n="5" when="2025-05-03" who="#BWB">
-        <desc>Restructure titles in titleStmt (series, main, short). Add abstract and textClass.</desc>
-      </change>
-      <change n="4" when="2025-02-07" who="#JK">
-        <desc>Adjusting to allow documentation of this customization.</desc>
-      </change>
-      <change n="1" notAfter="2025-02-07" who="#PR">
-        <desc>Creation of the initial ODD.</desc>
+      <change n="1" when="2025-12-12" who="#YR">
+        <desc>Initial commit and development of boilerplate.</desc>
       </change>
     </revisionDesc>
   </teiHeader>
@@ -79,8 +73,9 @@
       <div type="customizationDocs" xml:id="customizationDocs">
         <head>MEI Graphic Analysis</head>
         <div type="div1" xml:id="mei-graphicanalysisDocs">
-          <head>MEI for Common Western Music Notation (CMN)</head>
-          <p>This customization of MEI is meant to encode music notation following the principles of common western music notation (CMN) only.</p>
+          <head>MEI for Graphic Analyses (GA)</head>
+          <p>This customization of MEI is intended for analyses that represent the score as a network of notes and relations.</p>
+          <p>It can be used to encode, for instance, Schenkerian and various types of "reductive" analyses.</p>
         </div>
       </div>
       <div type="sourceRefs" xml:id="mei-generalDocs">
@@ -89,8 +84,8 @@
         <xi:include href="../source/docs/02-shared.xml" xpointer="shared"></xi:include>
         <xi:include href="../source/docs/03-metadata.xml" xpointer="metadata"></xi:include>
         <xi:include href="../source/docs/04-cmn.xml" xpointer="cmn"></xi:include>
-        <!--<xi:include href="../source/docs/05-mensural.xml" xpointer="mensural"/>-->
-        <!--<xi:include href="../source/docs/06-neumes.xml" xpointer="neumes"/>-->
+        <xi:include href="../source/docs/05-mensural.xml" xpointer="mensural"></xi:include>
+        <xi:include href="../source/docs/06-neumes.xml" xpointer="neumes"></xi:include>
         <xi:include href="../source/docs/07-tablature.xml" xpointer="tablature"></xi:include>
         <xi:include href="../source/docs/08-lyricsperfdir.xml" xpointer="lyricsperfdir"></xi:include>
         <xi:include href="../source/docs/09-textencoding.xml" xpointer="textencoding"></xi:include>
@@ -113,7 +108,6 @@
             </constraint>
           </constraintSpec>
           <!-- Include all modules -->
-          <!-- Deactivate the mensural and neumes modules -->
           <moduleRef key="MEI"></moduleRef>
           <moduleRef key="MEI.analytical"></moduleRef>
           <moduleRef key="MEI.cmn"></moduleRef>
@@ -129,14 +123,15 @@
           <moduleRef key="MEI.frbr"></moduleRef>
           <moduleRef key="MEI.genetic"></moduleRef>
           <moduleRef key="MEI.gestural"></moduleRef>
+          <moduleRef key="MEI.graphicanalysis"></moduleRef>
           <moduleRef key="MEI.harmony"></moduleRef>
           <moduleRef key="MEI.header"></moduleRef>
           <moduleRef key="MEI.lyrics"></moduleRef>
-          <!-- <moduleRef key="MEI.mensural"></moduleRef> -->
+          <moduleRef key="MEI.mensural"></moduleRef>
           <moduleRef key="MEI.midi"></moduleRef>
           <moduleRef key="MEI.msDesc"></moduleRef>
           <moduleRef key="MEI.namesdates"></moduleRef>
-          <!-- <moduleRef key="MEI.neumes"></moduleRef> -->
+          <moduleRef key="MEI.neumes"></moduleRef>
           <moduleRef key="MEI.performance"></moduleRef>
           <moduleRef key="MEI.ptrref"></moduleRef>
           <moduleRef key="MEI.shared"></moduleRef>
@@ -144,26 +139,6 @@
           <moduleRef key="MEI.text"></moduleRef>
           <moduleRef key="MEI.usersymbols"></moduleRef>
           <moduleRef key="MEI.visual"></moduleRef>
-          <elementSpec ident="graph" mode="add" module="MEI.shared">
-            <gloss xml:lang="en">A Schenker graph.</gloss>
-            <desc xml:lang="en">A graph of tonal relations.</desc>
-            <classes>
-              <memberOf key="att.common"></memberOf>
-              <memberOf key="model.resourceLike"></memberOf>
-            </classes>
-            <content></content>
-            <attList>
-              <attDef ident="ordered" usage="opt">
-                <desc xml:lang="en">Attribute description.</desc>
-                <datatype>
-                  <rng:ref name="data.BOOLEAN"></rng:ref>
-                </datatype>
-              </attDef>
-            </attList>
-            <remarks xml:lang="en">
-              <p>HTML-formatted remarks on the element.</p>
-            </remarks>
-          </elementSpec>
           <!-- Include SVG -->
           <moduleRef prefix="svg_" url="../source/svg11.rng">
             <content>
@@ -177,7 +152,7 @@
               <attDef ident="meiversion" mode="change" usage="rec">
                 <valList mode="change" type="closed">
                   <valItem ident="6.0-dev"></valItem>
-                  <valItem ident="6.0-dev+cmn"></valItem>
+                  <valItem ident="6.0-dev+cmn" mode="delete"></valItem>
                   <valItem ident="6.0-dev+anyStart" mode="delete"></valItem>
                   <valItem ident="6.0-dev+basic" mode="delete"></valItem>
                   <valItem ident="6.0-dev+mensural" mode="delete"></valItem>
@@ -185,19 +160,6 @@
                 </valList>
               </attDef>
             </attList>
-          </classSpec>
-          <!-- Disable mensural- and neume-specific model classes in the shared module -->
-          <!-- <classSpec ident="model.scorePart.mensuralAndNeumes" module="MEI.shared" type="model"
-            mode="delete"/> -->
-          <classSpec ident="model.sectionPart.mensuralAndNeumes" mode="delete" module="MEI.shared" type="model"></classSpec>
-          <classSpec ident="model.staffPart.mensuralAndNeumes" mode="delete" module="MEI.shared" type="model"></classSpec>
-          <classSpec ident="model.layerPart.mensuralAndNeumes" mode="delete" module="MEI.shared" type="model"></classSpec>
-          <!-- Move model.noteModifierLike from layerPart.mensuralAndNeumes to editTransPart.music -->
-          <classSpec ident="model.noteModifierLike" mode="replace" module="MEI.shared" type="model">
-            <desc>Groups elements that modify note-like features.</desc>
-            <classes>
-              <memberOf key="model.editTransPart.music"></memberOf>
-            </classes>
           </classSpec>
         </schemaSpec>
       </div>
