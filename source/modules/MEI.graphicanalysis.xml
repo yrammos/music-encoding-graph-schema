@@ -22,22 +22,51 @@
   </moduleSpec>
   <elementSpec ident="graph" mode="add" module="MEI.graphicanalysis">
     <gloss xml:lang="en">Analytical graph</gloss>
-    <desc xml:lang="en">An MEI representation of a mathematical graph whose nodes correspond to notes, relations between notes, or relations between relations.</desc>
+    <desc xml:lang="en">A hypergraph whose nodes correspond to score events, analytical relations between events, or relations between relations.</desc>
     <classes>
-      <memberOf key="att.common"></memberOf>
-      <memberOf key="model.mdivLike"></memberOf>
+      <memberOf key="att.id"/>
     </classes>
-    <content></content>
+    <content>
+      <rng:zeroOrMore>
+        <rng:choice>
+          <rng:ref name="node"/>
+          <rng:ref name="arc"/>
+        </rng:choice>
+      </rng:zeroOrMore>
+    </content>
     <attList>
-      <attDef ident="ordered" usage="opt">
-        <desc xml:lang="en">Attribute description.</desc>
-        <datatype>
-          <rng:ref name="data.BOOLEAN"></rng:ref>
-        </datatype>
+      <attDef ident="type" usage="req">
+        <desc xml:lang="en">Specifies whether the graph is directed or undirected.</desc>
+        <valList type="closed">
+          <valItem ident="directed">
+            <desc xml:lang="en">A graph in which arcs have a defined direction from source to target.</desc>
+          </valItem>
+          <valItem ident="undirected">
+            <desc xml:lang="en">A graph in which arcs have no defined direction. Reserved for future use.</desc>
+          </valItem>
+        </valList>
       </attDef>
     </attList>
+    <constraintSpec ident="graph_undirected_not_supported" scheme="schematron">
+      <constraint>
+        <sch:rule context="mei:graph[@type='undirected']">
+          <sch:assert role="warning" test="false()">Undirected graphs are not yet supported.</sch:assert>
+        </sch:rule>
+      </constraint>
+    </constraintSpec>
     <remarks xml:lang="en">
-      <p>HTML-formatted remarks on the element.</p>
+      <p>The <gi scheme="MEI">graph</gi> element appears as a sibling of <gi scheme="MEI">mdiv</gi> inside <gi scheme="MEI">body</gi>.</p>
     </remarks>
+  </elementSpec>
+  <elementSpec ident="body" mode="change" module="MEI.graphicanalysis">
+    <content>
+      <rng:oneOrMore>
+        <rng:choice>
+          <rng:ref name="model.divLike"/>
+          <rng:ref name="model.mdivLike"/>
+          <rng:ref name="graph"/>
+        </rng:choice>
+      </rng:oneOrMore>
+    </content>
   </elementSpec>
 </specGrp>
