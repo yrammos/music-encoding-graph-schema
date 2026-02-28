@@ -147,6 +147,62 @@
               </rng:define>
             </content>
           </moduleRef>
+          <!-- Extend <body> to allow <graph> alongside <mdiv> -->
+          <elementSpec ident="body" mode="change" module="MEI.shared">
+            <content>
+              <rng:oneOrMore>
+                <rng:choice>
+                  <rng:ref name="model.divLike"></rng:ref>
+                  <rng:ref name="model.mdivLike"></rng:ref>
+                  <rng:ref name="model.graphLike"></rng:ref>
+                </rng:choice>
+              </rng:oneOrMore>
+            </content>
+          </elementSpec>
+          <!-- Extend <label> to allow <note> children in graph context -->
+          <elementSpec ident="label" mode="change" module="MEI.shared">
+            <content>
+              <rng:choice>
+                <rng:zeroOrMore>
+                  <rng:choice>
+                    <rng:text></rng:text>
+                    <rng:ref name="model.textPhraseLike.limited"></rng:ref>
+                    <rng:ref name="model.editLike"></rng:ref>
+                    <rng:ref name="model.transcriptionLike"></rng:ref>
+                  </rng:choice>
+                </rng:zeroOrMore>
+                <rng:ref name="note"></rng:ref>
+              </rng:choice>
+            </content>
+            <constraintSpec ident="label_note_only_in_graph" scheme="schematron">
+              <constraint>
+                <sch:rule context="mei:label[mei:note][not(ancestor::mei:graph)]">
+                  <sch:assert test="false()">A note element is not permitted inside a label element outside a graph.</sch:assert>
+                </sch:rule>
+              </constraint>
+            </constraintSpec>
+            <attList>
+              <attDef ident="type" mode="change">
+                <valList mode="change" type="semi">
+                  <valItem ident="neighbor">
+                    <desc xml:lang="en">A neighbor-tone relation.</desc>
+                  </valItem>
+                  <valItem ident="passing">
+                    <desc xml:lang="en">A passing-tone relation.</desc>
+                  </valItem>
+                  <valItem ident="arpeggio">
+                    <desc xml:lang="en">An arpeggio relation.</desc>
+                  </valItem>
+                  <valItem ident="harmonic">
+                    <desc xml:lang="en">A harmonic relation.</desc>
+                  </valItem>
+                  <valItem ident="repeat">
+                    <desc xml:lang="en">A repeat relation.</desc>
+                  </valItem>
+                </valList>
+              </attDef>
+            </attList>
+          </elementSpec>
           <classSpec ident="att.meiVersion" mode="change" module="MEI.shared" type="atts">
             <attList>
               <attDef ident="meiversion" mode="change" usage="rec">
