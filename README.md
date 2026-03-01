@@ -1,8 +1,6 @@
 # Graphic Analysis Customization for MEI
 
-This branch contains work an ODD schema for graphic-analysis annotations to MEI files.
-
-The schema represents work in progress. Please do not cite or publish without permission.
+The present branch contains a schema for graphic analysis annotations in Music Encoding Initiative (MEI) scores. This is work in progress. Please do not cite or use in public work without permission.
 
 ## Building
 
@@ -10,4 +8,4 @@ To produce the requisite RNG and Schematron files, run the following shell scrip
 
 `./build_graph_mei.sh`
 
-A successful build operation will produce `.rng`and `.sch` files in `./dist`. An `.xslt` file will also be built for MEI validation by LSP engines (e.g. lemminx) that require it.
+A successful build operation will produce `.rng`and `.sch` files in `./dist`. An `.xslt` file will also be generated for MEI validation by LSP engines that require it, such as `lemminx`.
