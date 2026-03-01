@@ -1,7 +1,6 @@
 # build
 .ant-targets-build.xml
 build
-dist
 lib
 node_modules
 source/images/generatedLiveExamples/*
