@@ -113,6 +113,15 @@
         </sch:rule>
       </constraint>
     </constraintSpec>
+    <constraintSpec ident="node_in_arc" scheme="schematron">
+      <constraint>
+        <sch:rule context="mei:node">
+          <sch:let name="graph" value="ancestor::mei:graph"></sch:let>
+          <sch:let name="ref" value="concat('#', @xml:id)"></sch:let>
+          <sch:assert test="$graph/mei:arc[@from = $ref or @to = $ref]">Node must appear in at least one arc within the same graph.</sch:assert>
+        </sch:rule>
+      </constraint>
+    </constraintSpec>
     <attList>
       <attDef ident="xml:id" usage="req">
         <desc xml:lang="en">Unique identifier for this node.</desc>
