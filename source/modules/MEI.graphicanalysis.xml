@@ -144,6 +144,12 @@
           </valItem>
         </valList>
       </attDef>
+      <attDef ident="strucl" usage="opt">
+        <desc xml:lang="en">Identifies the structural layer to which this node belongs.</desc>
+        <datatype>
+          <rng:data type="positiveInteger"></rng:data>
+        </datatype>
+      </attDef>
     </attList>
   </elementSpec>
   <elementSpec ident="arc" mode="add" module="MEI.graphicanalysis">
